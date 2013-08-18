@@ -9,7 +9,7 @@
 //Implementation of an idea by Prof Braino to inform user that any changes made
 //to this build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "obijuan" //Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "dskywalk" //Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -82,7 +82,7 @@
 // 52 is 200k thermistor - ATC Semitec 204GT-2 (1k pullup)
 // 55 is 100k thermistor - ATC Semitec 104GT-2 (Used in ParCan) (1k pullup)
 
-#define TEMP_SENSOR_0 7  //5 
+#define TEMP_SENSOR_0 7
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_BED 1
@@ -103,7 +103,7 @@
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 250
+#define HEATER_0_MAXTEMP 257
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define BED_MAXTEMP 130
@@ -116,7 +116,7 @@
 // PID settings:
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-#define PID_MAX 256 // limits current to nozzle; 256=full current
+#define PID_MAX 192 // limits current to nozzle; 256=full current
 #ifdef PIDTEMP
   //#define PID_DEBUG // Sends debug data to the serial port. 
   //#define PID_OPENLOOP 1 // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
@@ -127,10 +127,15 @@
   #define PID_dT ((16.0 * 8.0)/(F_CPU / 64.0 / 256.0)) //sampling period of the temperature routine
 
 // If you are using a preconfigured hotend then you can use one of the value sets by uncommenting it
-// Ultimaker
-    #define  DEFAULT_Kp 22.2
-    #define  DEFAULT_Ki 1.08  
-    #define  DEFAULT_Kd 114  
+//-- M303 S230 C8
+//-- Autotuning 1 for Yavin: kp = 35.67, ki = 1.44, kd = 220.79
+//-- Autotuning 2 for Yavin: kp = 42.63, ki = 2.03, kd = 224.19
+//-- Autotuning 3 for Yavin: kp = 32.64, ki = 1.30, kd = 204.79
+//-- Autotuning 4 for Yavin: kp = 39.42, ki = 1.85, kd = 209.90 @ 192
+//-- M303 S230
+    #define  DEFAULT_Kp 39.42
+    #define  DEFAULT_Ki  1.85
+    #define  DEFAULT_Kd 209.90
 
 // Makergear
 //    #define  DEFAULT_Kp 7.0
@@ -253,11 +258,11 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 #define min_software_endstops true //If true, axis won't move to coordinates less than HOME_POS.
 #define max_software_endstops true  //If true, axis won't move to coordinates greater than the defined lengths below.
 // Travel limits after homing
-#define X_MAX_POS 205
+#define X_MAX_POS 170
 #define X_MIN_POS 0
-#define Y_MAX_POS 205
+#define Y_MAX_POS 160
 #define Y_MIN_POS 0
-#define Z_MAX_POS 200
+#define Z_MAX_POS 85
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -275,16 +280,17 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
-#define HOMING_FEEDRATE {3000, 3000, 100, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {50*40, 50*40, 4*40, 0}  // set the homing speeds (mm/min)
 
 // default settings 
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 2560, 719.2}  // default steps per unit for ultimaker 
-#define DEFAULT_MAX_FEEDRATE          {330, 330, 3.3, 45}    // (mm/sec)    
-#define DEFAULT_MAX_ACCELERATION      {3000,3000,20,3000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
-
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {79.906, 79.906, 2560, 877.355}  // default steps per unit for ultimaker 
+#define DEFAULT_MAX_FEEDRATE          {40, 40, 5, 45}    // (mm/sec)    
+#define DEFAULT_MAX_ACCELERATION      {3000,3000,20,2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+                                                             // default extrusor 3000
+                                                             
 #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves 
-#define DEFAULT_RETRACT_ACCELERATION  2000   // X, Y, Z and E max acceleration in mm/s^2 for r retracts
+#define DEFAULT_RETRACT_ACCELERATION  1000   // X, Y, Z and E max acceleration in mm/s^2 for r retracts -- default 2000
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
@@ -321,7 +327,7 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 
 // The RepRapDiscount Smart Controller (white PCB)
 // http://reprap.org/wiki/RepRapDiscount_Smart_Controller
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER    //-- My LCD!!!
+#define REPRAP_DISCOUNT_SMART_CONTROLLER    //-- My LCD!!!
 
 // The GADGETS3D G3D LCD/SD Controller (blue PCB)
 // http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
@@ -338,8 +344,8 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 #define PLA_PREHEAT_HPB_TEMP 70
 #define PLA_PREHEAT_FAN_SPEED 255		// Insert Value between 0 and 255
 
-#define ABS_PREHEAT_HOTEND_TEMP 240
-#define ABS_PREHEAT_HPB_TEMP 100
+#define ABS_PREHEAT_HOTEND_TEMP 242
+#define ABS_PREHEAT_HPB_TEMP 110
 #define ABS_PREHEAT_FAN_SPEED 255		// Insert Value between 0 and 255
 
 
