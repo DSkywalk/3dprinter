@@ -409,6 +409,7 @@
       #define BTN_ENC 35
 
       #define SDCARDDETECT 49
+      #define SDCARDDETECT -1 // trying manual detect
     #else
       //arduino pin which triggers an piezzo beeper
       #define BEEPER 33	 // Beeper on AUX-4

@@ -27,8 +27,8 @@
 	#define MACHINE_NAME "Ultimaker"
 	#define FIRMWARE_URL "http://firmware.ultimaker.com"
 #else
-	#define MACHINE_NAME "Mendel"
-	#define FIRMWARE_URL "http://www.mendel-parts.com"
+	#define MACHINE_NAME "Yavin"
+	#define FIRMWARE_URL "http://github.com/Marlin"
 #endif
 
 #define STRINGIFY_(n) #n
@@ -674,7 +674,7 @@
 #if LANGUAGE_CHOICE == 5
 
 // LCD Menu Messages
-#define WELCOME_MSG MACHINE_NAME " Lista."
+#define WELCOME_MSG MACHINE_NAME " Preparada."
 #define MSG_SD_INSERTED "Tarjeta SD Colocada"
 #define MSG_SD_REMOVED "Tarjeta SD Retirada"
 #define MSG_MAIN " Menu Principal \003"
@@ -719,6 +719,8 @@
 #define MSG_VTRAV_MIN " VTrav min:"
 #define MSG_AMAX " Amax "
 #define MSG_A_RETRACT " A-retrac.:"
+#define MSG_TEMPERATURE "Temperatura"
+#define MSG_MOTION "Movimiento"
 #define MSG_XSTEPS " Xpasos/mm:"
 #define MSG_YSTEPS " Ypasos/mm:"
 #define MSG_ZSTEPS " Zpasos/mm:"
@@ -743,6 +745,7 @@
 #define MSG_STOP_PRINT " Detener Impresion \x7E"
 #define MSG_CARD_MENU " Menu de SD    \x7E"
 #define MSG_NO_CARD " No hay Tarjeta SD"
+#define MSG_RESUMING "Continuar Impresion"
 #define MSG_DWELL "Reposo..."
 #define MSG_USERWAIT "Esperando Ordenes..."
 #define MSG_NO_MOVE "Sin movimiento"
@@ -801,6 +804,7 @@
 #define MSG_Y_MIN "y_min: "
 #define MSG_Y_MAX "y_max: "
 #define MSG_Z_MIN "z_min: "
+#define MSG_Z_MAX "z_max: "
 #define MSG_M119_REPORT "Comprobando fines de carrera."
 #define MSG_ENDSTOP_HIT "PULSADO"
 #define MSG_ENDSTOP_OPEN "abierto"
