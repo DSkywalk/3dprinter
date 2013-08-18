@@ -1423,7 +1423,19 @@ void process_commands()
       }
     }
     break;
-
+    #if defined(BEEPER) && BEEPER > -1
+    case 300: // M300
+    {
+      int beepS = 1;
+      int beepP = 1000;
+      if(code_seen('S')) beepS = code_value();
+      if(code_seen('P')) beepP = code_value();
+      tone(BEEPER, beepS);
+      delay(beepP);
+      noTone(BEEPER);
+    }
+    break;
+    #endif // M300 
     #ifdef PIDTEMP
     case 301: // M301
       {
